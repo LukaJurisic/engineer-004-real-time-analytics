@@ -1,7 +1,7 @@
 # Evidence Manifest
 
 Command: `python src/generate_evidence.py --reviewer-demo`
-Timestamp UTC: `2026-05-14T03:55:07.664802+00:00`
+Timestamp UTC: `2026-05-14T04:05:15.716848+00:00`
 
 ## Claims proven
 - accepted-event lifecycle invariant holds for all local scenarios
