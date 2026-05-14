@@ -1,0 +1,61 @@
+{
+  "scenario": "duplicate_and_out_of_order",
+  "stats": {
+    "accepted_count": 6,
+    "browser_generated_count": 6,
+    "duplicate_deduped_count": 1,
+    "erased_or_tombstoned_count": 0,
+    "erasure_processed_count": 0,
+    "fallback_used_count": 0,
+    "fallback_write_failed_count": 0,
+    "identity_conflict_count": 1,
+    "invariant": {
+      "accepted_count": 6,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 6
+    },
+    "lifecycle_counts": {
+      "accepted": 6,
+      "duplicate_deduped": 1,
+      "processed": 5,
+      "received": 6,
+      "stream_durable": 6
+    },
+    "lost_after_accept_count": 0,
+    "not_accepted_count": 0,
+    "pending_replay_count": 0,
+    "processed_unique_count": 5,
+    "received_count": 6,
+    "rejected_invalid_count": 0,
+    "scenario": "duplicate_and_out_of_order",
+    "segment_membership_count": 1,
+    "stream_write_failed_count": 0,
+    "tenant_throttles": {},
+    "tombstones_emitted_count": 0
+  },
+  "summary": {
+    "degraded": "conflicting identity is recorded and the first mapping remains canonical",
+    "fallback_queue_depth": 0,
+    "hot_state_subject_count": 1,
+    "identity_conflicts": [
+      {
+        "existing_user_id": "user_a",
+        "new_user_id": "user_b",
+        "policy": "keep_first_mapping_and_record_conflict",
+        "tenant_id": "tenant_0200",
+        "visitor_id": "visitor_merge"
+      }
+    ],
+    "identity_links": {
+      "tenant_0200:visitor_merge": "user_a"
+    },
+    "operator_action": "send deterministic conflict record to review queue and reconcile downstream facts by canonical subject",
+    "post_erasure_policy": "drop_until_new_consent",
+    "segment_membership": [
+      "tenant_0200:user:user_a"
+    ],
+    "setup_assumptions": "behavior arrives before and after login, one duplicate retry, then a conflicting login.",
+    "tombstones": []
+  }
+}

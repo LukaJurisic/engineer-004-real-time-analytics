@@ -1,0 +1,55 @@
+{
+  "scenario": "largest_tenant_hotspot",
+  "stats": {
+    "accepted_count": 64,
+    "browser_generated_count": 113,
+    "duplicate_deduped_count": 0,
+    "erased_or_tombstoned_count": 0,
+    "erasure_processed_count": 0,
+    "fallback_used_count": 0,
+    "fallback_write_failed_count": 0,
+    "identity_conflict_count": 0,
+    "invariant": {
+      "accepted_count": 64,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 64
+    },
+    "lifecycle_counts": {
+      "accepted": 64,
+      "processed": 64,
+      "received": 113,
+      "rejected_invalid": 49,
+      "stream_durable": 64
+    },
+    "lost_after_accept_count": 0,
+    "not_accepted_count": 0,
+    "pending_replay_count": 0,
+    "processed_unique_count": 64,
+    "received_count": 113,
+    "rejected_invalid_count": 49,
+    "scenario": "largest_tenant_hotspot",
+    "segment_membership_count": 3,
+    "stream_write_failed_count": 0,
+    "tenant_throttles": {
+      "tenant_0001": 49
+    },
+    "tombstones_emitted_count": 0
+  },
+  "summary": {
+    "degraded": "hot tenant is throttled and isolated before stream write",
+    "fallback_queue_depth": 0,
+    "hot_state_subject_count": 3,
+    "identity_conflicts": [],
+    "identity_links": {},
+    "operator_action": "increase tenant bucket count or provision tenant-isolated stream if sustained and commercially justified",
+    "post_erasure_policy": "drop_until_new_consent",
+    "segment_membership": [
+      "tenant_0001:visitor:hot_visitor_0",
+      "tenant_0001:visitor:hot_visitor_1",
+      "tenant_0001:visitor:hot_visitor_2"
+    ],
+    "setup_assumptions": "one tenant exceeds local per-tenant limit while neighboring tenants continue.",
+    "tombstones": []
+  }
+}

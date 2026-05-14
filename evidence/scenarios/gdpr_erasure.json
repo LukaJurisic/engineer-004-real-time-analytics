@@ -1,0 +1,60 @@
+{
+  "scenario": "gdpr_erasure",
+  "stats": {
+    "accepted_count": 5,
+    "browser_generated_count": 6,
+    "duplicate_deduped_count": 0,
+    "erased_or_tombstoned_count": 1,
+    "erasure_processed_count": 1,
+    "fallback_used_count": 0,
+    "fallback_write_failed_count": 0,
+    "identity_conflict_count": 0,
+    "invariant": {
+      "accepted_count": 5,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 5
+    },
+    "lifecycle_counts": {
+      "accepted": 5,
+      "erased_or_tombstoned": 1,
+      "processed": 4,
+      "received": 6,
+      "rejected_invalid": 1,
+      "stream_durable": 5
+    },
+    "lost_after_accept_count": 0,
+    "not_accepted_count": 0,
+    "pending_replay_count": 0,
+    "processed_unique_count": 4,
+    "received_count": 6,
+    "rejected_invalid_count": 1,
+    "scenario": "gdpr_erasure",
+    "segment_membership_count": 0,
+    "stream_write_failed_count": 0,
+    "tenant_throttles": {},
+    "tombstones_emitted_count": 1
+  },
+  "summary": {
+    "degraded": "post-erasure events for the same identifiers are rejected until new consent policy says otherwise",
+    "fallback_queue_depth": 0,
+    "hot_state_subject_count": 0,
+    "identity_conflicts": [],
+    "identity_links": {},
+    "operator_action": "verify hot-state deletion, emit warehouse/delete manifests, and route legal-retention exceptions for approval",
+    "post_erasure_policy": "drop_until_new_consent",
+    "segment_membership": [],
+    "setup_assumptions": "identified user qualifies for pricing segment, then sends erasure request.",
+    "tombstones": [
+      {
+        "compaction_command": "erase tenant=tenant_0099 subject=user:user_erasure",
+        "policy": "drop_until_new_consent",
+        "removed_hot_state_keys": [
+          "tenant_0099:user:user_erasure"
+        ],
+        "subject": "user:user_erasure",
+        "tenant_id": "tenant_0099"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "scenario": "black_friday_spike",
+  "stats": {
+    "accepted_count": 2100,
+    "browser_generated_count": 2100,
+    "duplicate_deduped_count": 20,
+    "erased_or_tombstoned_count": 0,
+    "erasure_processed_count": 0,
+    "fallback_used_count": 0,
+    "fallback_write_failed_count": 0,
+    "identity_conflict_count": 0,
+    "invariant": {
+      "accepted_count": 2100,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 2100
+    },
+    "lifecycle_counts": {
+      "accepted": 2100,
+      "duplicate_deduped": 20,
+      "processed": 2080,
+      "received": 2100,
+      "stream_durable": 2100
+    },
+    "lost_after_accept_count": 0,
+    "not_accepted_count": 0,
+    "pending_replay_count": 0,
+    "processed_unique_count": 2080,
+    "received_count": 2100,
+    "rejected_invalid_count": 0,
+    "scenario": "black_friday_spike",
+    "segment_membership_count": 0,
+    "stream_write_failed_count": 0,
+    "tenant_throttles": {},
+    "tombstones_emitted_count": 0
+  },
+  "summary": {
+    "degraded": "duplicates are deduped; no stream outage in this scenario",
+    "fallback_queue_depth": 0,
+    "hot_state_subject_count": 296,
+    "identity_conflicts": [],
+    "identity_links": {},
+    "operator_action": "pre-warm/provision stream capacity before launch and raise Kinesis quotas if forecast requires it",
+    "post_erasure_policy": "drop_until_new_consent",
+    "segment_membership": [],
+    "setup_assumptions": "local spike multiplies normal event count and injects browser retries.",
+    "tombstones": []
+  }
+}

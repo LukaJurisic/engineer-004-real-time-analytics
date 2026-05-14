@@ -1,0 +1,96 @@
+{
+  "claims_not_proven": [
+    "AWS regional throughput, quota readiness, or Kinesis warm-throughput behavior",
+    "browser/network/ad-blocker delivery",
+    "ClickHouse production query latency",
+    "legal sufficiency of deletion policy",
+    "final cloud bill"
+  ],
+  "claims_proven": [
+    "accepted-event lifecycle invariant holds for all local scenarios",
+    "fallback-durable accepted events are replayable without accepted-event loss",
+    "duplicates are deduped before segment membership changes",
+    "identity conflicts are recorded instead of silently overwritten",
+    "GDPR hot-state erasure emits tombstone/compaction command and removes segment membership",
+    "capacity math is deterministic and source-labeled"
+  ],
+  "command": "python src/generate_evidence.py --reviewer-demo",
+  "generated_files": [
+    "evidence/capacity_model.json",
+    "evidence/capacity_model.md",
+    "evidence/scenarios/normal_load.json",
+    "evidence/scenarios/normal_load.md",
+    "evidence/scenarios/black_friday_spike.json",
+    "evidence/scenarios/black_friday_spike.md",
+    "evidence/scenarios/stream_outage_with_fallback_replay.json",
+    "evidence/scenarios/stream_outage_with_fallback_replay.md",
+    "evidence/scenarios/largest_tenant_hotspot.json",
+    "evidence/scenarios/largest_tenant_hotspot.md",
+    "evidence/scenarios/gdpr_erasure.json",
+    "evidence/scenarios/gdpr_erasure.md",
+    "evidence/scenarios/duplicate_and_out_of_order.json",
+    "evidence/scenarios/duplicate_and_out_of_order.md"
+  ],
+  "next_files_to_inspect": [
+    "SUBMISSION.md",
+    "evidence/manifest.json",
+    "evidence/scenarios/stream_outage_with_fallback_replay.md",
+    "docs/evidence_log.md",
+    "docs/sources.md"
+  ],
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python_version": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "scenario_invariants": {
+    "black_friday_spike": {
+      "accepted_count": 2100,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 2100
+    },
+    "duplicate_and_out_of_order": {
+      "accepted_count": 6,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 6
+    },
+    "gdpr_erasure": {
+      "accepted_count": 5,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 5
+    },
+    "largest_tenant_hotspot": {
+      "accepted_count": 64,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 64
+    },
+    "normal_load": {
+      "accepted_count": 520,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 520
+    },
+    "stream_outage_with_fallback_replay": {
+      "accepted_count": 96,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 96
+    }
+  },
+  "scenario_names": [
+    "normal_load",
+    "black_friday_spike",
+    "stream_outage_with_fallback_replay",
+    "largest_tenant_hotspot",
+    "gdpr_erasure",
+    "duplicate_and_out_of_order"
+  ],
+  "source_label_policy": {
+    "[Assumed]": "editable planning assumption, not a measured fact",
+    "[Benchmarked: source]": "verified against named official/public source in docs/sources.md",
+    "[Estimated]": "calculated from stated assumptions or source facts",
+    "[Observed: local simulation]": "measured by deterministic tests/scripts in this repo"
+  },
+  "timestamp_utc": "2026-05-14T03:55:07.664802+00:00"
+}

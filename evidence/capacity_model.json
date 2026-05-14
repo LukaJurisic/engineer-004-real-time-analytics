@@ -1,0 +1,690 @@
+{
+  "scenarios": {
+    "base": {
+      "average_events_per_second": {
+        "note": "",
+        "source": "50,000,000 events/day divided by 86,400 seconds",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 578.7
+      },
+      "compressed_gib_per_day": {
+        "note": "",
+        "source": "raw_gib_per_day * assumed compression ratio",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 11.92
+      },
+      "cost_posture": {
+        "note": "",
+        "source": "final purchasing requires region-specific AWS, ClickHouse, and warehouse pricing verification",
+        "source_label": "[Assumed]",
+        "unit": "text",
+        "value": "directional range, not a quote"
+      },
+      "directional_monthly_cost_high": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 38918.0
+      },
+      "directional_monthly_cost_low": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 21621.0
+      },
+      "flink_recommended_kpus": {
+        "note": "",
+        "source": "max throughput/state/source estimate with 30 percent headroom",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 20
+      },
+      "flink_source_parallelism_kpus": {
+        "note": "",
+        "source": "source parallelism matched to Kinesis shard count",
+        "source_label": "[Estimated]",
+        "unit": "KPUs/task slots",
+        "value": 9
+      },
+      "flink_state_kpus": {
+        "note": "",
+        "source": "state size / assumed usable state memory per KPU",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 14
+      },
+      "flink_throughput_kpus": {
+        "note": "",
+        "source": "Managed Service for Apache Flink KPU sizing heuristic from local skill, not AWS quote",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 3
+      },
+      "ingest_mib_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * average event size",
+        "source_label": "[Estimated]",
+        "unit": "MiB/sec",
+        "value": 5.65
+      },
+      "largest_tenant_events_per_bucket_second": {
+        "note": "",
+        "source": "largest tenant rate divided across configured tenant buckets",
+        "source_label": "[Estimated]",
+        "unit": "events/sec/bucket",
+        "value": 16.3
+      },
+      "largest_tenant_events_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * largest_tenant_share",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 1041.7
+      },
+      "monthly_compressed_tib": {
+        "note": "",
+        "source": "compressed_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 0.35
+      },
+      "monthly_raw_tib": {
+        "note": "",
+        "source": "raw_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 1.4
+      },
+      "raw_gib_per_day": {
+        "note": "",
+        "source": "events/day * average event size",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 47.68
+      },
+      "recommended_kinesis_shards": {
+        "note": "",
+        "source": "required_kinesis_shards * headroom_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 9
+      },
+      "required_kinesis_shards": {
+        "note": "ceil(max(records/sec / 1000, MiB/sec / 1))",
+        "source": "AWS Kinesis shard capacity docs; challenge brief for 50M/day input",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 6
+      },
+      "scenario": "base",
+      "spike_events_per_second": {
+        "note": "",
+        "source": "average_events_per_second * configured spike_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 5787.0
+      },
+      "stream_retention_gib": {
+        "note": "",
+        "source": "raw_gib_per_day * retention hours / 24",
+        "source_label": "[Estimated]",
+        "unit": "GiB",
+        "value": 143.05
+      }
+    },
+    "growth_500M_per_day": {
+      "average_events_per_second": {
+        "note": "",
+        "source": "500,000,000 events/day divided by 86,400 seconds",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 5787.0
+      },
+      "compressed_gib_per_day": {
+        "note": "",
+        "source": "raw_gib_per_day * assumed compression ratio",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 119.21
+      },
+      "cost_posture": {
+        "note": "",
+        "source": "final purchasing requires region-specific AWS, ClickHouse, and warehouse pricing verification",
+        "source_label": "[Assumed]",
+        "unit": "text",
+        "value": "directional range, not a quote"
+      },
+      "directional_monthly_cost_high": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 52264.0
+      },
+      "directional_monthly_cost_low": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 29036.0
+      },
+      "flink_recommended_kpus": {
+        "note": "",
+        "source": "max throughput/state/source estimate with 30 percent headroom",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 104
+      },
+      "flink_source_parallelism_kpus": {
+        "note": "",
+        "source": "source parallelism matched to Kinesis shard count",
+        "source_label": "[Estimated]",
+        "unit": "KPUs/task slots",
+        "value": 44
+      },
+      "flink_state_kpus": {
+        "note": "",
+        "source": "state size / assumed usable state memory per KPU",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 80
+      },
+      "flink_throughput_kpus": {
+        "note": "",
+        "source": "Managed Service for Apache Flink KPU sizing heuristic from local skill, not AWS quote",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 12
+      },
+      "ingest_mib_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * average event size",
+        "source_label": "[Estimated]",
+        "unit": "MiB/sec",
+        "value": 28.26
+      },
+      "largest_tenant_events_per_bucket_second": {
+        "note": "",
+        "source": "largest tenant rate divided across configured tenant buckets",
+        "source_label": "[Estimated]",
+        "unit": "events/sec/bucket",
+        "value": 81.4
+      },
+      "largest_tenant_events_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * largest_tenant_share",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 5208.3
+      },
+      "monthly_compressed_tib": {
+        "note": "",
+        "source": "compressed_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 3.49
+      },
+      "monthly_raw_tib": {
+        "note": "",
+        "source": "raw_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 13.97
+      },
+      "raw_gib_per_day": {
+        "note": "",
+        "source": "events/day * average event size",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 476.84
+      },
+      "recommended_kinesis_shards": {
+        "note": "",
+        "source": "required_kinesis_shards * headroom_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 44
+      },
+      "required_kinesis_shards": {
+        "note": "ceil(max(records/sec / 1000, MiB/sec / 1))",
+        "source": "AWS Kinesis shard capacity docs; challenge brief for 50M/day input",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 29
+      },
+      "scenario": "growth_500M_per_day",
+      "spike_events_per_second": {
+        "note": "",
+        "source": "average_events_per_second * configured spike_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 28935.2
+      },
+      "stream_retention_gib": {
+        "note": "",
+        "source": "raw_gib_per_day * retention hours / 24",
+        "source_label": "[Estimated]",
+        "unit": "GiB",
+        "value": 1430.51
+      }
+    },
+    "larger_event_payload": {
+      "average_events_per_second": {
+        "note": "",
+        "source": "50,000,000 events/day divided by 86,400 seconds",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 578.7
+      },
+      "compressed_gib_per_day": {
+        "note": "",
+        "source": "raw_gib_per_day * assumed compression ratio",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 57.22
+      },
+      "cost_posture": {
+        "note": "",
+        "source": "final purchasing requires region-specific AWS, ClickHouse, and warehouse pricing verification",
+        "source_label": "[Assumed]",
+        "unit": "text",
+        "value": "directional range, not a quote"
+      },
+      "directional_monthly_cost_high": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 43206.0
+      },
+      "directional_monthly_cost_low": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 24003.0
+      },
+      "flink_recommended_kpus": {
+        "note": "",
+        "source": "max throughput/state/source estimate with 30 percent headroom",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 46
+      },
+      "flink_source_parallelism_kpus": {
+        "note": "",
+        "source": "source parallelism matched to Kinesis shard count",
+        "source_label": "[Estimated]",
+        "unit": "KPUs/task slots",
+        "value": 35
+      },
+      "flink_state_kpus": {
+        "note": "",
+        "source": "state size / assumed usable state memory per KPU",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 14
+      },
+      "flink_throughput_kpus": {
+        "note": "",
+        "source": "Managed Service for Apache Flink KPU sizing heuristic from local skill, not AWS quote",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 10
+      },
+      "ingest_mib_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * average event size",
+        "source_label": "[Estimated]",
+        "unit": "MiB/sec",
+        "value": 22.61
+      },
+      "largest_tenant_events_per_bucket_second": {
+        "note": "",
+        "source": "largest tenant rate divided across configured tenant buckets",
+        "source_label": "[Estimated]",
+        "unit": "events/sec/bucket",
+        "value": 16.3
+      },
+      "largest_tenant_events_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * largest_tenant_share",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 1041.7
+      },
+      "monthly_compressed_tib": {
+        "note": "",
+        "source": "compressed_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 1.68
+      },
+      "monthly_raw_tib": {
+        "note": "",
+        "source": "raw_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 5.59
+      },
+      "raw_gib_per_day": {
+        "note": "",
+        "source": "events/day * average event size",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 190.73
+      },
+      "recommended_kinesis_shards": {
+        "note": "",
+        "source": "required_kinesis_shards * headroom_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 35
+      },
+      "required_kinesis_shards": {
+        "note": "ceil(max(records/sec / 1000, MiB/sec / 1))",
+        "source": "AWS Kinesis shard capacity docs; challenge brief for 50M/day input",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 23
+      },
+      "scenario": "larger_event_payload",
+      "spike_events_per_second": {
+        "note": "",
+        "source": "average_events_per_second * configured spike_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 5787.0
+      },
+      "stream_retention_gib": {
+        "note": "",
+        "source": "raw_gib_per_day * retention hours / 24",
+        "source_label": "[Estimated]",
+        "unit": "GiB",
+        "value": 572.2
+      }
+    },
+    "largest_tenant_hotspot": {
+      "average_events_per_second": {
+        "note": "",
+        "source": "50,000,000 events/day divided by 86,400 seconds",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 578.7
+      },
+      "compressed_gib_per_day": {
+        "note": "",
+        "source": "raw_gib_per_day * assumed compression ratio",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 11.92
+      },
+      "cost_posture": {
+        "note": "",
+        "source": "final purchasing requires region-specific AWS, ClickHouse, and warehouse pricing verification",
+        "source_label": "[Assumed]",
+        "unit": "text",
+        "value": "directional range, not a quote"
+      },
+      "directional_monthly_cost_high": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 38918.0
+      },
+      "directional_monthly_cost_low": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 21621.0
+      },
+      "flink_recommended_kpus": {
+        "note": "",
+        "source": "max throughput/state/source estimate with 30 percent headroom",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 20
+      },
+      "flink_source_parallelism_kpus": {
+        "note": "",
+        "source": "source parallelism matched to Kinesis shard count",
+        "source_label": "[Estimated]",
+        "unit": "KPUs/task slots",
+        "value": 9
+      },
+      "flink_state_kpus": {
+        "note": "",
+        "source": "state size / assumed usable state memory per KPU",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 14
+      },
+      "flink_throughput_kpus": {
+        "note": "",
+        "source": "Managed Service for Apache Flink KPU sizing heuristic from local skill, not AWS quote",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 3
+      },
+      "ingest_mib_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * average event size",
+        "source_label": "[Estimated]",
+        "unit": "MiB/sec",
+        "value": 5.65
+      },
+      "largest_tenant_events_per_bucket_second": {
+        "note": "",
+        "source": "largest tenant rate divided across configured tenant buckets",
+        "source_label": "[Estimated]",
+        "unit": "events/sec/bucket",
+        "value": 20.3
+      },
+      "largest_tenant_events_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * largest_tenant_share",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 2604.2
+      },
+      "monthly_compressed_tib": {
+        "note": "",
+        "source": "compressed_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 0.35
+      },
+      "monthly_raw_tib": {
+        "note": "",
+        "source": "raw_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 1.4
+      },
+      "raw_gib_per_day": {
+        "note": "",
+        "source": "events/day * average event size",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 47.68
+      },
+      "recommended_kinesis_shards": {
+        "note": "",
+        "source": "required_kinesis_shards * headroom_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 9
+      },
+      "required_kinesis_shards": {
+        "note": "ceil(max(records/sec / 1000, MiB/sec / 1))",
+        "source": "AWS Kinesis shard capacity docs; challenge brief for 50M/day input",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 6
+      },
+      "scenario": "largest_tenant_hotspot",
+      "spike_events_per_second": {
+        "note": "",
+        "source": "average_events_per_second * configured spike_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 5787.0
+      },
+      "stream_retention_gib": {
+        "note": "",
+        "source": "raw_gib_per_day * retention hours / 24",
+        "source_label": "[Estimated]",
+        "unit": "GiB",
+        "value": 143.05
+      }
+    },
+    "lean_budget": {
+      "average_events_per_second": {
+        "note": "",
+        "source": "50,000,000 events/day divided by 86,400 seconds",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 578.7
+      },
+      "compressed_gib_per_day": {
+        "note": "",
+        "source": "raw_gib_per_day * assumed compression ratio",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 11.92
+      },
+      "cost_posture": {
+        "note": "",
+        "source": "final purchasing requires region-specific AWS, ClickHouse, and warehouse pricing verification",
+        "source_label": "[Assumed]",
+        "unit": "text",
+        "value": "directional range, not a quote"
+      },
+      "directional_monthly_cost_high": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 31689.0
+      },
+      "directional_monthly_cost_low": {
+        "note": "",
+        "source": "assumed editable unit costs in assumptions.yaml",
+        "source_label": "[Estimated]",
+        "unit": "USD/month",
+        "value": 17605.0
+      },
+      "flink_recommended_kpus": {
+        "note": "",
+        "source": "max throughput/state/source estimate with 30 percent headroom",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 20
+      },
+      "flink_source_parallelism_kpus": {
+        "note": "",
+        "source": "source parallelism matched to Kinesis shard count",
+        "source_label": "[Estimated]",
+        "unit": "KPUs/task slots",
+        "value": 4
+      },
+      "flink_state_kpus": {
+        "note": "",
+        "source": "state size / assumed usable state memory per KPU",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 14
+      },
+      "flink_throughput_kpus": {
+        "note": "",
+        "source": "Managed Service for Apache Flink KPU sizing heuristic from local skill, not AWS quote",
+        "source_label": "[Estimated]",
+        "unit": "KPUs",
+        "value": 2
+      },
+      "ingest_mib_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * average event size",
+        "source_label": "[Estimated]",
+        "unit": "MiB/sec",
+        "value": 2.83
+      },
+      "largest_tenant_events_per_bucket_second": {
+        "note": "",
+        "source": "largest tenant rate divided across configured tenant buckets",
+        "source_label": "[Estimated]",
+        "unit": "events/sec/bucket",
+        "value": 8.1
+      },
+      "largest_tenant_events_per_second": {
+        "note": "",
+        "source": "spike_events_per_second * largest_tenant_share",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 520.8
+      },
+      "monthly_compressed_tib": {
+        "note": "",
+        "source": "compressed_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 0.35
+      },
+      "monthly_raw_tib": {
+        "note": "",
+        "source": "raw_gib_per_day * 30 / 1024",
+        "source_label": "[Estimated]",
+        "unit": "TiB/month",
+        "value": 1.4
+      },
+      "raw_gib_per_day": {
+        "note": "",
+        "source": "events/day * average event size",
+        "source_label": "[Estimated]",
+        "unit": "GiB/day",
+        "value": 47.68
+      },
+      "recommended_kinesis_shards": {
+        "note": "",
+        "source": "required_kinesis_shards * headroom_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 4
+      },
+      "required_kinesis_shards": {
+        "note": "ceil(max(records/sec / 1000, MiB/sec / 1))",
+        "source": "AWS Kinesis shard capacity docs; challenge brief for 50M/day input",
+        "source_label": "[Estimated]",
+        "unit": "shards",
+        "value": 3
+      },
+      "scenario": "lean_budget",
+      "spike_events_per_second": {
+        "note": "",
+        "source": "average_events_per_second * configured spike_multiplier",
+        "source_label": "[Estimated]",
+        "unit": "events/sec",
+        "value": 2893.5
+      },
+      "stream_retention_gib": {
+        "note": "",
+        "source": "raw_gib_per_day * retention hours / 24",
+        "source_label": "[Estimated]",
+        "unit": "GiB",
+        "value": 143.05
+      }
+    }
+  },
+  "source_label_policy": {
+    "assumed": "[Assumed]",
+    "benchmarked": "[Benchmarked: source]",
+    "estimated": "[Estimated]",
+    "observed": "[Observed: local simulation]"
+  }
+}

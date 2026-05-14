@@ -1,0 +1,57 @@
+{
+  "source_label_policy": {
+    "observed": "[Observed: local simulation]",
+    "benchmarked": "[Benchmarked: source]",
+    "estimated": "[Estimated]",
+    "assumed": "[Assumed]"
+  },
+  "base": {
+    "events_per_day": 50000000,
+    "event_size_bytes": 1024,
+    "spike_multiplier": 10,
+    "headroom_multiplier": 1.5,
+    "compression_ratio": 0.25,
+    "stream_retention_hours": 72,
+    "tenant_count": 500,
+    "default_tenant_bucket_count": 16,
+    "large_tenant_bucket_count": 64,
+    "largest_tenant_share": 0.18,
+    "flink_processing_amplification": 3.0,
+    "flink_mb_per_kpu": 7.5,
+    "flink_state_gb": 30,
+    "usable_state_gb_per_kpu": 2.25,
+    "monthly_days": 30,
+    "unit_costs": {
+      "kinesis_shard_month": 11.0,
+      "kinesis_put_payload_unit_million": 0.014,
+      "flink_kpu_month": 110.0,
+      "clickhouse_month": 12000.0,
+      "redis_month": 3500.0,
+      "s3_storage_tb_month": 23.0,
+      "observability_month": 2500.0,
+      "ingestion_compute_month": 5000.0,
+      "warehouse_export_month": 3500.0
+    }
+  },
+  "sensitivity": {
+    "lean_budget": {
+      "spike_multiplier": 5,
+      "headroom_multiplier": 1.25,
+      "clickhouse_month": 8000.0,
+      "redis_month": 2200.0
+    },
+    "growth_500M_per_day": {
+      "events_per_day": 500000000,
+      "spike_multiplier": 5,
+      "flink_state_gb": 180
+    },
+    "largest_tenant_hotspot": {
+      "largest_tenant_share": 0.45,
+      "large_tenant_bucket_count": 128
+    },
+    "larger_event_payload": {
+      "event_size_bytes": 4096,
+      "compression_ratio": 0.30
+    }
+  }
+}

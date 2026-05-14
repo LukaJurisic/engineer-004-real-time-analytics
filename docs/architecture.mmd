@@ -1,0 +1,54 @@
+flowchart LR
+    subgraph Client["Browser / Existing JavaScript SDK"]
+        SDK["Browser events\noutside accepted-event loss guarantee"]
+    end
+
+    subgraph Ingest["SDK-compatible ingestion"]
+        API["Ingestion API\nvalidate auth rate limit dedupe key"]
+        ACK["ACK boundary\nafter durable stream or fallback write"]
+        FB["Fallback spillover\nSQS/DynamoDB/S3 durable queue"]
+    end
+
+    subgraph Stream["Streaming spine"]
+        KDS["Kinesis Data Streams\npartition_key = tenant_id:hash(visitor/session)%bucket_count"]
+        REPLAY["Fallback replay worker"]
+        FLINK["Managed Service for Apache Flink\nstateful windows identity segments"]
+    end
+
+    subgraph Serving["Serving and analytics"]
+        REDIS["Redis / ElastiCache\nhot personalization state"]
+        CH["ClickHouse\nraw events + rollups"]
+        S3["S3 raw lake\nParquet/Iceberg-style layout"]
+        FIREHOSE["Firehose / Snowflake export"]
+        BQ["BigQuery Storage Write API exporter"]
+    end
+
+    subgraph Control["Control planes"]
+        RECON["Reconciliation jobs\nby tenant and event time"]
+        ERASE["GDPR/CCPA erasure workflow\nhot deletes tombstones manifests"]
+        OBS["CloudWatch dashboards alarms traces\nlow-cardinality metrics"]
+    end
+
+    SDK --> API
+    API -->|invalid or throttled: no ACK| SDK
+    API -->|stream durable| KDS
+    API -->|stream write failed| FB
+    FB -->|fallback durable| ACK
+    KDS --> ACK
+    FB --> REPLAY --> KDS
+    KDS --> FLINK
+    FLINK --> REDIS
+    FLINK --> CH
+    FLINK --> S3
+    S3 --> FIREHOSE
+    S3 --> BQ
+    CH --> RECON
+    S3 --> RECON
+    REDIS --> ERASE
+    CH --> ERASE
+    S3 --> ERASE
+    OBS -. wraps .- API
+    OBS -. wraps .- KDS
+    OBS -. wraps .- FLINK
+    OBS -. wraps .- CH
+    OBS -. wraps .- FB

@@ -1,0 +1,48 @@
+{
+  "scenario": "normal_load",
+  "stats": {
+    "accepted_count": 520,
+    "browser_generated_count": 520,
+    "duplicate_deduped_count": 0,
+    "erased_or_tombstoned_count": 0,
+    "erasure_processed_count": 0,
+    "fallback_used_count": 0,
+    "fallback_write_failed_count": 0,
+    "identity_conflict_count": 0,
+    "invariant": {
+      "accepted_count": 520,
+      "holds": true,
+      "lost_after_accept": 0,
+      "processed_unique_plus_duplicate_plus_erased_plus_pending": 520
+    },
+    "lifecycle_counts": {
+      "accepted": 520,
+      "processed": 520,
+      "received": 520,
+      "stream_durable": 520
+    },
+    "lost_after_accept_count": 0,
+    "not_accepted_count": 0,
+    "pending_replay_count": 0,
+    "processed_unique_count": 520,
+    "received_count": 520,
+    "rejected_invalid_count": 0,
+    "scenario": "normal_load",
+    "segment_membership_count": 0,
+    "stream_write_failed_count": 0,
+    "tenant_throttles": {},
+    "tombstones_emitted_count": 0
+  },
+  "summary": {
+    "degraded": "nothing intentionally degraded",
+    "fallback_queue_depth": 0,
+    "hot_state_subject_count": 17,
+    "identity_conflicts": [],
+    "identity_links": {},
+    "operator_action": "watch ingest ack p95, Kinesis throttles, Flink lag, and reconciliation deltas",
+    "post_erasure_policy": "drop_until_new_consent",
+    "segment_membership": [],
+    "setup_assumptions": "520 tenants, one accepted event each, light pricing-page traffic.",
+    "tombstones": []
+  }
+}
