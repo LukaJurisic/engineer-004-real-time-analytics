@@ -12,6 +12,22 @@ Use the existing SDK-compatible ingestion endpoint, then a Kinesis-first AWS pip
 
 `Ingestion API -> Kinesis Data Streams -> Managed Service for Apache Flink -> Redis hot state + ClickHouse dashboards + Amazon Simple Storage Service raw lake -> Snowflake/BigQuery exports`
 
+```mermaid
+flowchart LR
+  SDK["Existing JS SDK<br/>browser delivery outside guarantee"] --> API["Compatible ingestion API<br/>validate, rate-limit, derive dedupe key"]
+  API -->|ack after durable stream write| KDS["Kinesis Data Streams<br/>tenant-bucket partitioning"]
+  API -->|stream write fails| FB["Durable fallback spillover<br/>ack only if fallback write succeeds"]
+  FB --> Replay["Replay worker"] --> KDS
+  KDS --> Flink["Managed Service for Apache Flink<br/>dedupe, identity stitching, windows, segments"]
+  Flink --> Redis["Redis<br/>hot personalization state"]
+  Flink --> CH["ClickHouse<br/>dashboard OLAP"]
+  Flink --> Lake["Raw lake<br/>replay and reconciliation"]
+  Lake --> Exports["Snowflake / BigQuery exports"]
+  Redis --> Recon["Reconciliation<br/>accepted vs lake vs sink counts"]
+  CH --> Recon
+  Lake --> Recon
+```
+
 Kinesis is my MVP choice because it reduces broker operations for the team size and timeline [Estimated]. I would keep the event contract portable enough that MSK/Kafka remains an escape hatch if replay tooling, Kafka ecosystem needs, per-tenant stream isolation, or large-scale cost justify the extra operational burden [Estimated]. I would not be casual about Kinesis on-demand. For known launches, I would provision or warm capacity, check regional quotas, and rehearse fallback because AWS documents hot-key and rapid-ramp caveats [Benchmarked: source].
 
 The architecture diagram is in `docs/architecture.mmd` [Observed: local artifact].
